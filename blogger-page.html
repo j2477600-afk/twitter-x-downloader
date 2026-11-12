@@ -1,0 +1,104 @@
+<!-- Twitter / X Video Downloader - Blogger Page HTML
+     Replace BACKEND_URL below with your deployed backend URL.
+     Paste into Blogger Page > HTML view. -->
+<div id="xvd-app">
+  <style>
+    #xvd-app{font-family:Arial,Helvetica,sans-serif;color:#172033;max-width:920px;margin:24px auto;padding:16px;box-sizing:border-box}
+    #xvd-app *{box-sizing:border-box}
+    #xvd-app .xvd-card{background:#fff;border:1px solid #e7eaf0;border-radius:22px;box-shadow:0 14px 45px rgba(15,23,42,.09);overflow:hidden}
+    #xvd-app .xvd-hero{background:linear-gradient(135deg,#111827,#252f43);color:#fff;text-align:center;padding:34px 22px 30px}
+    #xvd-app .xvd-logo{width:58px;height:58px;border-radius:18px;background:#fff;color:#111827;display:grid;place-items:center;font-size:28px;font-weight:900;margin:0 auto 14px}
+    #xvd-app h2{font-size:28px;line-height:1.2;margin:0 0 10px;color:inherit}
+    #xvd-app .xvd-hero p{margin:0;color:#d5dbe6;font-size:14px;line-height:1.6}
+    #xvd-app .xvd-body{padding:26px}
+    #xvd-app label{display:block;font-weight:700;font-size:14px;margin:0 0 9px}
+    #xvd-app .xvd-inputrow{display:flex;gap:10px}
+    #xvd-app input{width:100%;min-width:0;padding:16px;border:1.5px solid #dce1e9;border-radius:12px;font-size:15px;outline:none}
+    #xvd-app input:focus{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+    #xvd-app button{border:0;border-radius:12px;padding:14px 20px;font-weight:800;cursor:pointer;font-size:14px;transition:.2s}
+    #xvd-app button:disabled{opacity:.55;cursor:not-allowed}
+    #xvd-app .xvd-primary{background:#dc2626;color:white;white-space:nowrap}
+    #xvd-app .xvd-primary:hover{background:#b91c1c}
+    #xvd-app .xvd-secondary{background:#eef1f5;color:#172033}
+    #xvd-app .xvd-note{font-size:12px;color:#687386;line-height:1.6;margin:12px 2px 0}
+    #xvd-app .xvd-status{display:none;margin-top:18px;padding:13px 15px;border-radius:12px;font-size:14px;line-height:1.5}
+    #xvd-app .xvd-status.info{display:block;background:#eff6ff;color:#1d4ed8}
+    #xvd-app .xvd-status.error{display:block;background:#fef2f2;color:#b91c1c}
+    #xvd-app .xvd-status.success{display:block;background:#f0fdf4;color:#166534}
+    #xvd-app .xvd-result{display:none;margin-top:22px;border:1px solid #e7eaf0;border-radius:16px;padding:16px}
+    #xvd-app .xvd-resulttop{display:flex;gap:15px;align-items:flex-start}
+    #xvd-app .xvd-thumb{width:150px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:#edf0f4}
+    #xvd-app .xvd-title{font-weight:800;font-size:15px;line-height:1.45;overflow-wrap:anywhere}
+    #xvd-app .xvd-meta{font-size:12px;color:#687386;margin-top:7px}
+    #xvd-app .xvd-downloadrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    #xvd-app .xvd-downloadrow a{display:inline-block;text-decoration:none;background:#dc2626;color:#fff;padding:13px 18px;border-radius:11px;font-size:13px;font-weight:800}
+    #xvd-app .xvd-downloadrow a:hover{background:#b91c1c}
+    #xvd-app .xvd-footer{padding:16px 22px;background:#f8fafc;color:#697386;font-size:11px;line-height:1.6;text-align:center}
+    #xvd-app .xvd-spinner{display:inline-block;width:15px;height:15px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-3px;margin-right:7px;animation:xvdspin .7s linear infinite}
+    @keyframes xvdspin{to{transform:rotate(360deg)}}
+    @media(max-width:600px){#xvd-app{padding:8px;margin:12px auto}#xvd-app .xvd-hero{padding:28px 16px}#xvd-app h2{font-size:23px}#xvd-app .xvd-body{padding:18px}#xvd-app .xvd-inputrow{flex-direction:column}#xvd-app .xvd-inputrow button{width:100%}#xvd-app .xvd-resulttop{flex-direction:column}#xvd-app .xvd-thumb{width:100%}}
+  </style>
+  <div class="xvd-card">
+    <div class="xvd-hero">
+      <div class="xvd-logo">X</div>
+      <h2>Twitter / X Video Downloader</h2>
+      <p>Paste a public X post link and fetch available video details.</p>
+    </div>
+    <div class="xvd-body">
+      <label for="xvd-url">Paste Twitter / X post URL</label>
+      <div class="xvd-inputrow">
+        <input id="xvd-url" type="url" placeholder="https://x.com/username/status/..." autocomplete="url">
+        <button class="xvd-primary" id="xvd-fetch">Fetch Video</button>
+      </div>
+      <p class="xvd-note">Supports public posts containing downloadable video. Private, protected, age-restricted or login-only content is not supported.</p>
+      <div id="xvd-status" class="xvd-status" role="status" aria-live="polite"></div>
+      <div id="xvd-result" class="xvd-result">
+        <div class="xvd-resulttop">
+          <img id="xvd-thumb" class="xvd-thumb" alt="Video thumbnail" hidden>
+          <div>
+            <div id="xvd-title" class="xvd-title"></div>
+            <div id="xvd-meta" class="xvd-meta"></div>
+          </div>
+        </div>
+        <div class="xvd-downloadrow" id="xvd-downloads"></div>
+      </div>
+    </div>
+    <div class="xvd-footer">Use this tool only for content you own or are authorized to download. Respect copyright and X's terms.</div>
+  </div>
+</div>
+<script>
+(function(){
+  // IMPORTANT: Set this to your deployed backend URL, e.g. https://your-app.onrender.com
+  const BACKEND_URL = "https://YOUR-BACKEND-DOMAIN";
+  const input=document.getElementById("xvd-url"), fetchBtn=document.getElementById("xvd-fetch");
+  const statusBox=document.getElementById("xvd-status"), result=document.getElementById("xvd-result");
+  const title=document.getElementById("xvd-title"), meta=document.getElementById("xvd-meta");
+  const thumb=document.getElementById("xvd-thumb"), downloads=document.getElementById("xvd-downloads");
+  function status(msg,type){statusBox.className="xvd-status "+type;statusBox.textContent=msg;}
+  function validXUrl(value){
+    try{const u=new URL(value);return ["x.com","www.x.com","twitter.com","www.twitter.com","mobile.twitter.com"].includes(u.hostname.toLowerCase()) && /\/status\/\d+/.test(u.pathname);}
+    catch(e){return false;}
+  }
+  fetchBtn.addEventListener("click",async function(){
+    const url=input.value.trim(); result.style.display="none"; downloads.innerHTML="";
+    if(!validXUrl(url)){status("कृपया सही X/Twitter पोस्ट लिंक डालें।","error");return;}
+    if(BACKEND_URL.includes("YOUR-BACKEND-DOMAIN")){status("पहले Blogger कोड में BACKEND_URL को अपने डिप्लॉय किए गए Backend URL से बदलें।","error");return;}
+    fetchBtn.disabled=true;fetchBtn.innerHTML='<span class="xvd-spinner"></span>Fetching...';
+    status("वीडियो की जानकारी प्राप्त की जा रही है...","info");
+    try{
+      const response=await fetch(BACKEND_URL.replace(/\/$/,"")+"/api/info",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||"वीडियो की जानकारी नहीं मिल सकी।");
+      title.textContent=data.title||"X Video";
+      meta.textContent=(data.duration?("Duration: "+data.duration+" sec · "):"")+"Available quality: "+(data.formats||[]).map(f=>f.label).join(", ");
+      if(data.thumbnail){thumb.src=data.thumbnail;thumb.hidden=false;}else{thumb.hidden=true;}
+      (data.formats||[]).forEach(f=>{
+        const a=document.createElement("a");a.href=BACKEND_URL.replace(/\/$/,"")+"/api/download?url="+encodeURIComponent(url)+"&format="+encodeURIComponent(f.id);
+        a.textContent="Download "+f.label;a.rel="nofollow";downloads.appendChild(a);
+      });
+      result.style.display="block";status("वीडियो की जानकारी मिल गई। उपलब्ध क्वालिटी में से चुनें।","success");
+    }catch(err){status(err.message||"कुछ समस्या हुई। कृपया बाद में प्रयास करें।","error");}
+    finally{fetchBtn.disabled=false;fetchBtn.textContent="Fetch Video";}
+  });
+})();
+</script>
